@@ -143,8 +143,8 @@ def test_single_excitation_decoder_uses_qiskit_bit_order():
 
 def test_single_excitation_hull_fails_without_reliable_evaluation(monkeypatch):
     """An invalid-shot run cannot return a plausible classical fallback."""
-    from pyriemann_qiskit.optimization.cobyla_optimizer import CobylaOptimizer
     import pyriemann_qiskit.optimization.simplex as simplex_module
+    from pyriemann_qiskit.optimization.cobyla_optimizer import CobylaOptimizer
 
     monkeypatch.setattr(simplex_module, "_decode_counts", lambda *args: (None, 0))
     matrices = np.array([[[1.0]], [[9.0]]])
