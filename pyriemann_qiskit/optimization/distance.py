@@ -18,6 +18,7 @@ from pyriemann.utils.distance import (
 from pyriemann.utils.mean import mean_logeuclid
 
 from .docplex import ClassicalOptimizer
+from .simplex import SingleExcitationHullOptimizer
 
 
 def qdistance_logeuclid_to_convex_hull(A, B, optimizer=ClassicalOptimizer()):
@@ -36,6 +37,8 @@ def qdistance_logeuclid_to_convex_hull(A, B, optimizer=ClassicalOptimizer()):
     optimizer : pyQiskitOptimizer, default=ClassicalOptimizer()
         An instance of
         :class:`pyriemann_qiskit.optimization.docplex.pyQiskitOptimizer`.
+        :class:`pyriemann_qiskit.optimization.simplex.SingleExcitationHullOptimizer`
+        is also accepted for hull-only variational optimization.
 
     Returns
     -------
@@ -82,6 +85,8 @@ def weights_logeuclid_to_convex_hull(A, B, optimizer=ClassicalOptimizer()):
     optimizer : pyQiskitOptimizer, default=ClassicalOptimizer()
         An instance of
         :class:`pyriemann_qiskit.optimization.docplex.pyQiskitOptimizer`.
+        :class:`pyriemann_qiskit.optimization.simplex.SingleExcitationHullOptimizer`
+        is also accepted for hull-only variational optimization.
 
     Returns
     -------
@@ -108,6 +113,8 @@ def weights_logeuclid_to_convex_hull(A, B, optimizer=ClassicalOptimizer()):
 
     """
     n_matrices, _, _ = A.shape
+    if isinstance(optimizer, SingleExcitationHullOptimizer):
+        return optimizer.solve_hull(A, B)
     matrices = range(n_matrices)
 
     def trace_prod_log(m1, m2):

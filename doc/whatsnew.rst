@@ -6,6 +6,15 @@ What's new in the package
 =========================
 
 
+Unreleased
+----------
+
+- Add an opt-in ``SingleExcitationHullOptimizer`` for the continuous
+  Log-Euclidean convex hull. Its circuit represents simplex weights by
+  one-excitation probabilities. The hull objective is evaluated using
+  the weights returned from the best variational loss call. In shot mode,
+  invalid bitstrings are excluded and the valid-shot fraction is reported.
+
 v0.7.0
 ------
 
